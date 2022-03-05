@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS content.genre (
 CREATE TABLE IF NOT EXISTS content.genre_film_work (
     id uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
     genre_id uuid NOT NULL REFERENCES content.genre(id),
-    person_id uuid NOT NULL REFERENCES content.person(id),
+    film_work_id uuid NOT NULL REFERENCES content.film_work(id),
     created timestamp with time zone
 );
 
-CREATE UNIQUE INDEX film_work_genre_idx ON content.genre_film_work (genre_id, person_id);
+CREATE UNIQUE INDEX film_work_genre_idx ON content.genre_film_work (genre_id, film_work_id);
