@@ -9,7 +9,6 @@ class TimeStampedMixin(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        # Этот параметр указывает Django, что этот класс не является представлением таблицы
         abstract = True
 
 
@@ -29,8 +28,8 @@ class Genre(UUIDMixin, TimeStampedMixin):
 
     class Meta:
         db_table = "content\".\"genre"
-        verbose_name = 'genre'
-        verbose_name_plural = 'genres'
+        verbose_name = _('genre')
+        verbose_name_plural = _('genres')
 
 
 class Person(UUIDMixin, TimeStampedMixin):
@@ -41,8 +40,8 @@ class Person(UUIDMixin, TimeStampedMixin):
 
     class Meta:
         db_table = "content\".\"person"
-        verbose_name = 'person'
-        verbose_name_plural = 'persons'
+        verbose_name = _('person')
+        verbose_name_plural = _('persons')
 
 
 class PersonFilmwork(UUIDMixin):
@@ -57,8 +56,8 @@ class PersonFilmwork(UUIDMixin):
 
 class Filmwork(UUIDMixin, TimeStampedMixin):
     class FilmTypes(models.TextChoices):
-        MOVIE = 'MV', _('Movie')
-        TV_SHOW = 'TV', _('TV_show')
+        MOVIE = 'MV', _('movie')
+        TV_SHOW = 'TV', _('tv_show')
 
     title = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True)
@@ -74,8 +73,8 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 
     class Meta:
         db_table = "content\".\"film_work"
-        verbose_name = 'filmwork'
-        verbose_name_plural = 'filmworks'
+        verbose_name = _('filmwork')
+        verbose_name_plural = _('filmworks')
 
 
 class GenreFilmwork(UUIDMixin):
