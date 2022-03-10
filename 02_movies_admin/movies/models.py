@@ -45,13 +45,21 @@ class Person(UUIDMixin, TimeStampedMixin):
 
 
 class PersonFilmwork(UUIDMixin):
+    class RoleTypes(models.TextChoices):
+        DIRECTOR = 'DR', _('director')
+        WRITER = 'WR', _('writer')
+        ACTOR = 'AC', _('actor')
+
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.TextField(_('role'), null=True)
+    role = models.TextField(_('role'), null=True, choices=RoleTypes.choices, default=RoleTypes.ACTOR)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "content\".\"person_film_work"
+        indexes = [
+            models.Index(fields=['film_work_id', 'person_id'], name='film_work_genre_idx'),
+        ]
 
 
 class Filmwork(UUIDMixin, TimeStampedMixin):
@@ -84,3 +92,6 @@ class GenreFilmwork(UUIDMixin):
 
     class Meta:
         db_table = "content\".\"genre_film_work"
+        constraints = [
+            models.UniqueConstraint(fields=['genre_id', 'film_work_id'], name='film_work_genre_idx')
+        ]
